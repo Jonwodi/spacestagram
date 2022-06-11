@@ -11,28 +11,25 @@ export default function PublciApiApod() {
     withCredentials: false,
   });
 
-  console.log(response);
+  // console.log(response);
   // console.log(Object.getPrototypeOf(response) == Promise.prototype);
 
   const [url, setUrl] = useState();
-  const [explanation, setExplanation] = useState();
-  const [data, setData] = useState();
-  // const [copyright, setCopyright] = useState();
+  const [title, setTitle] = useState();
+  const [date, setDate] = useState();
 
   async function fetchData() {
+    setTitle((await response).data.title);
     setUrl((await response).data.url);
-    // console.log((await response).data.url);
-    // setUrl((await response).data.explanation);
-    // console.log((await response).data.explanation);
-    // setCopyright((await response).data.copyright);
-    // console.log((await response).data.copyright);
+    setDate((await response).data.date);
   }
   fetchData();
 
   return (
     <div>
+      <h1>{title}</h1>
       <img src={url} />
-      <p>{explanation}</p>
+      <p>Date of capture: {date}</p>
     </div>
   );
 }

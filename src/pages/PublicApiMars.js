@@ -11,23 +11,25 @@ export default function PublicApiMars() {
     withCredentials: false,
   });
 
-  console.log(response);
+  // console.log(response);
   // console.log(Object.getPrototypeOf(response) == Promise.prototype);
 
   const [url, setUrl] = useState();
-  const [explanation, setExplanation] = useState();
-  const [data, setData] = useState();
-  // const [copyright, setCopyright] = useState();
+  const [title, setTitle] = useState();
+  const [date, setDate] = useState();
 
   async function fetchData() {
-    console.log((await response).data.photos[0].img_src);
+    setTitle((await response).data.photos[0].camera.full_name);
     setUrl((await response).data.photos[0].img_src);
+    setDate((await response).data.photos[0].earth_date);
   }
   fetchData();
 
   return (
     <div>
+      <h1>{title}</h1>
       <img src={url} />
+      <p>Date of capture: {date}</p>
     </div>
   );
 }
