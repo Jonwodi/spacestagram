@@ -1,8 +1,7 @@
 import "./App.css";
 import { useNavigate } from "react-router";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PublicApiApod from "./pages/PublciApiApod";
-import PublicApiMars from "./pages/PublicApiMars";
+import NasaPublicApis from "./pages/NasaPublicApis";
 
 export default function App() {
   const navigate = useNavigate();
@@ -11,15 +10,9 @@ export default function App() {
     <Routes>
       <Route
         exact
-        path="/apod"
-        element={<PublicApiApod />}
-        render={(props) => <PublicApiApod {...props} />}
-      />
-      <Route
-        exact
-        path="/mars"
-        element={<PublicApiMars />}
-        render={(props) => <PublicApiMars {...props} />}
+        path="/"
+        element={<NasaPublicApis />}
+        render={(props) => <NasaPublicApis {...props} />}
       />
     </Routes>
     // </BrowserRouter>
