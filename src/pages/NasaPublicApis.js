@@ -27,12 +27,14 @@ export default function NasaPublicApis() {
   const [apodTitle, setApodTitle] = useState();
   const [apodDate, setApodDate] = useState();
   const [likeBtnApod, setLikeBtnApod] = useState(0);
+  const [apodColor, setApodColor] = useState(false);
 
   const [marslikeText, setMarsLikeText] = useState("likes");
   const [marsUrl, setMarsUrl] = useState();
   const [marsTitle, setMarsTitle] = useState();
   const [marsDate, setMarsDate] = useState();
   const [likeBtnMars, setLikeBtnMars] = useState(0);
+  const [marsColor, setMarsColor] = useState(false);
 
   // retrieve all relevant API data from NASA API
   async function fetchApodData() {
@@ -54,9 +56,11 @@ export default function NasaPublicApis() {
     if (likeBtnApod == 0) {
       setLikeBtnApod(likeBtnApod + 1);
       setApodLikeText("like");
+      setApodColor(true);
     } else if (likeBtnApod == 1) {
       setLikeBtnApod(likeBtnApod - 1);
       setApodLikeText("likes");
+      setApodColor(false);
     }
   };
 
@@ -64,9 +68,11 @@ export default function NasaPublicApis() {
     if (likeBtnMars == 0) {
       setLikeBtnMars(likeBtnMars + 1);
       setMarsLikeText("like");
+      setMarsColor(true);
     } else if (likeBtnMars == 1) {
       setLikeBtnMars(likeBtnMars - 1);
       setMarsLikeText("likes");
+      setMarsColor(false);
     }
   };
 
@@ -82,7 +88,13 @@ export default function NasaPublicApis() {
         <div className="flex justify-between mt-4">
           <div className="flex items-center">
             <button className="" onClick={handleLikesForApod}>
-              <HeartIcon className="w-8 stroke-black fill-[#EC5569] active:fill-[#E01E1E] stroke-1" />
+              <HeartIcon
+                className={`w-8 stroke-black active:fill-dark-alert stroke-1 ${
+                  apodColor
+                    ? "fill-light-alert"
+                    : "fill-light-white stroke-gray-dark"
+                }`}
+              />
             </button>
             <span className="ml-4">
               {likeBtnApod} {apodlikeText}
@@ -98,7 +110,13 @@ export default function NasaPublicApis() {
         <div className="flex justify-between mt-4">
           <div className="flex items-center">
             <button className="" onClick={handleLikesForMars}>
-              <HeartIcon className="w-8 stroke-black fill-[#EC5569] active:fill-[#E01E1E] stroke-1" />
+              <HeartIcon
+                className={`w-8 stroke-black active:fill-dark-alert stroke-1 ${
+                  marsColor
+                    ? "fill-light-alert"
+                    : "fill-light-white stroke-gray-dark"
+                }`}
+              />
             </button>
             <span className="ml-4">
               {likeBtnMars} {marslikeText}
