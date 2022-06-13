@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { HeartIcon } from "@heroicons/react/solid";
 
 export default function NasaPublicApis() {
   const { REACT_APP_KEY } = process.env;
@@ -8,6 +9,7 @@ export default function NasaPublicApis() {
 
   // NASA API endpoints
   const publicApi_UrlApod = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
+
   const publicApi_UrlMars = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${apiKey}`;
 
   // Make a get request to access/view NASA API data
@@ -46,25 +48,33 @@ export default function NasaPublicApis() {
   fetchMarsData();
 
   // Functions to handle likes
-  let handleLikesForMars = () => {
-    setLikeBtnMars(likeBtnMars + 1);
+  let handleLikesForApod = () => {
+    if (likeBtnApod == 0) {
+      return setLikeBtnApod(likeBtnApod + 1);
+    } else if (likeBtnApod == 1) {
+      return setLikeBtnApod(likeBtnApod - 1);
+    }
   };
 
-  let handleLikesForApod = () => {
-    setLikeBtnApod(likeBtnApod + 1);
+  let handleLikesForMars = () => {
+    if (likeBtnMars == 0) {
+      return setLikeBtnMars(likeBtnMars + 1);
+    } else if (likeBtnMars == 1) {
+      return setLikeBtnMars(likeBtnMars - 1);
+    }
   };
 
   return (
     <div className="flex flex-col flex-wrap content-center ">
-      <h1 className="text-center mt-10 mb-10">Spacestagram</h1>
+      <h1 className="text-center mt-10 mb-10 text-5xl">Spacestagram</h1>
 
       <div className="mb-16 px-6 lg:px-0">
-        <h2>{apodTitle}</h2>
+        <h2 className="text-center md:text-left">{apodTitle}</h2>
         <img src={apodUrl} className="max-w-full lg:max-w-5xl" />
         <div className="flex justify-between mt-4">
           <div className="flex items-center">
             <button className="" onClick={handleLikesForApod}>
-              <img src={"./images/like_heart.svg"} className="w-8" />
+              <HeartIcon className="w-8 stroke-black fill-[#EC5569] stroke-1" />
             </button>
             <span className="ml-4">{likeBtnApod} likes</span>
           </div>
@@ -73,12 +83,12 @@ export default function NasaPublicApis() {
       </div>
 
       <div className="mb-16 px-6 lg:px-0">
-        <h2>{marsTitle}</h2>
+        <h2 className="text-center md:text-left">{marsTitle}</h2>
         <img src={marsUrl} className="max-w-full lg:max-w-5xl" />
         <div className="flex justify-between mt-4">
           <div className="flex items-center">
             <button className="" onClick={handleLikesForMars}>
-              <img src={"./images/like_heart.svg"} className="w-8" />
+              <HeartIcon className="w-8 stroke-black fill-[#EC5569] stroke-1" />
             </button>
             <span className="ml-4">{likeBtnMars} likes</span>
           </div>
