@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { HeartIcon } from "@heroicons/react/solid";
 
 export default function NasaPublicApis() {
@@ -22,11 +22,13 @@ export default function NasaPublicApis() {
   });
 
   // react state variables and their functions
+  const [apodlikeText, setApodLikeText] = useState("likes");
   const [apodUrl, setApodUrl] = useState();
   const [apodTitle, setApodTitle] = useState();
   const [apodDate, setApodDate] = useState();
   const [likeBtnApod, setLikeBtnApod] = useState(0);
 
+  const [marslikeText, setMarsLikeText] = useState("likes");
   const [marsUrl, setMarsUrl] = useState();
   const [marsTitle, setMarsTitle] = useState();
   const [marsDate, setMarsDate] = useState();
@@ -50,47 +52,57 @@ export default function NasaPublicApis() {
   // Functions to handle likes
   let handleLikesForApod = () => {
     if (likeBtnApod == 0) {
-      return setLikeBtnApod(likeBtnApod + 1);
+      setLikeBtnApod(likeBtnApod + 1);
+      setApodLikeText("like");
     } else if (likeBtnApod == 1) {
-      return setLikeBtnApod(likeBtnApod - 1);
+      setLikeBtnApod(likeBtnApod - 1);
+      setApodLikeText("likes");
     }
   };
 
   let handleLikesForMars = () => {
     if (likeBtnMars == 0) {
-      return setLikeBtnMars(likeBtnMars + 1);
+      setLikeBtnMars(likeBtnMars + 1);
+      setMarsLikeText("like");
     } else if (likeBtnMars == 1) {
-      return setLikeBtnMars(likeBtnMars - 1);
+      setLikeBtnMars(likeBtnMars - 1);
+      setMarsLikeText("likes");
     }
   };
 
   return (
-    <div className="flex flex-col flex-wrap content-center ">
-      <h1 className="text-center mt-10 mb-10 text-5xl">Spacestagram</h1>
+    <div className="flex flex-col flex-wrap content-center bg-gray-300">
+      <h1 className="text-center mt-10 mb-10 text-5xl font-['Lobster-Regular'] italic">
+        Spacestagram
+      </h1>
 
       <div className="mb-16 px-6 lg:px-0">
-        <h2 className="text-center md:text-left">{apodTitle}</h2>
+        <h2 className="text-center md:text-left text-2xl">{apodTitle}</h2>
         <img src={apodUrl} className="max-w-full lg:max-w-5xl" />
         <div className="flex justify-between mt-4">
           <div className="flex items-center">
             <button className="" onClick={handleLikesForApod}>
-              <HeartIcon className="w-8 stroke-black fill-[#EC5569] stroke-1" />
+              <HeartIcon className="w-8 stroke-black fill-[#EC5569] active:fill-[#E01E1E] stroke-1" />
             </button>
-            <span className="ml-4">{likeBtnApod} likes</span>
+            <span className="ml-4">
+              {likeBtnApod} {apodlikeText}
+            </span>
           </div>
           <p className="">Date of capture: {apodDate}</p>
         </div>
       </div>
 
       <div className="mb-16 px-6 lg:px-0">
-        <h2 className="text-center md:text-left">{marsTitle}</h2>
+        <h2 className="text-center md:text-left text-2xl">{marsTitle}</h2>
         <img src={marsUrl} className="max-w-full lg:max-w-5xl" />
         <div className="flex justify-between mt-4">
           <div className="flex items-center">
             <button className="" onClick={handleLikesForMars}>
-              <HeartIcon className="w-8 stroke-black fill-[#EC5569] stroke-1" />
+              <HeartIcon className="w-8 stroke-black fill-[#EC5569] active:fill-[#E01E1E] stroke-1" />
             </button>
-            <span className="ml-4">{likeBtnMars} likes</span>
+            <span className="ml-4">
+              {likeBtnMars} {marslikeText}
+            </span>
           </div>
           <p className="">Date of capture: {marsDate}</p>
         </div>
